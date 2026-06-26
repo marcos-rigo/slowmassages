@@ -8,7 +8,7 @@ export function ProfileHeader() {
       {/* Circular profile image */}
       <div className="relative w-24 h-24 rounded-full overflow-hidden ring-2 ring-border shadow-lg">
         <Image
-          src="/images/profile.png"
+          src="/images/perfil.jpg"
           alt="Slow Massages — perfil"
           fill
           className="object-cover"
