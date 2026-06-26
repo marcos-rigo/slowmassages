@@ -47,12 +47,14 @@ interface SocialButtonProps {
 
 const BRAND_STYLES = {
   instagram: {
-    hoverBg: 'group-hover:bg-gradient-to-tr group-hover:from-[#F58529] group-hover:via-[#DD2A7B] group-hover:to-[#8134AF] group-hover:text-white',
+    bg: 'bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white shadow-[0_2px_8px_rgba(221,42,123,0.15)]',
+    hoverBg: 'group-hover:shadow-[0_4px_16px_rgba(221,42,123,0.3)] group-hover:scale-105',
     hoverBorder: 'hover:border-[#DD2A7B]/45',
     hoverText: 'group-hover:text-[#DD2A7B]',
   },
   whatsapp: {
-    hoverBg: 'group-hover:bg-[#25D366] group-hover:text-white',
+    bg: 'bg-[#25D366] text-white shadow-[0_2px_8px_rgba(37,211,102,0.15)]',
+    hoverBg: 'group-hover:shadow-[0_4px_16px_rgba(37,211,102,0.3)] group-hover:scale-105',
     hoverBorder: 'hover:border-[#25D366]/45',
     hoverText: 'group-hover:text-[#25D366]',
   },
@@ -88,9 +90,9 @@ export function SocialButton({
       {/* Icon wrapper */}
       <span className={`
         flex items-center justify-center w-10 h-10 rounded-xl
-        bg-secondary text-primary
         transition-all duration-300
         shrink-0
+        ${brand.bg}
         ${brand.hoverBg}
       `}>
         <Icon size={18} />
