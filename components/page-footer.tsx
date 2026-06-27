@@ -7,7 +7,7 @@ export function PageFooter() {
         <div className="w-4 h-px bg-border" />
       </div>
       <p className="text-[11px] text-muted-foreground/40 tracking-wide">
-        {'© 2025 · Con amor & calma'}
+        {'© 2026 · Con amor & calma'}
       </p>
     </footer>
   )
