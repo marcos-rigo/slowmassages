@@ -1,119 +1,307 @@
 'use client'
 
-import { useState } from 'react'
-import { CalendarDays, Clock, MessageCircle } from 'lucide-react'
+import { useState, useMemo } from 'react'
+import { CalendarDays, Clock, MessageCircle, Check, Calendar } from 'lucide-react'
 
 const PHONE_NUMBER = '5493816689786'
 
-const TIME_SLOTS = [
-  '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
-  '12:00', '14:00', '14:30', '15:00', '15:30', '16:00',
-  '16:30', '17:00', '17:30', '18:00', '18:30', '19:00',
+const SERVICES = [
+  { id: 'calma', name: 'Masaje Calma Profunda', duration: '60/90 min' },
+  { id: 'descontracturante', name: 'Masaje Liberación & Alivio', duration: '60/90 min' },
+  { id: 'signature', name: 'Experiencia Slow Signature', duration: '75 min' },
 ]
 
-function formatDateSpanish(dateStr: string): string {
-  if (!dateStr) return ''
-  const [year, month, day] = dateStr.split('-')
-  const dateObj = new Date(parseInt(year), parseInt(month) - 1, parseInt(day))
-  const daysOfWeek = [
-    'domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'
-  ]
-  const months = [
-    'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
-    'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre',
-  ]
-  const dayName = daysOfWeek[dateObj.getDay()]
-  return `${dayName} ${parseInt(day)} de ${months[parseInt(month) - 1]} de ${year}`
+const TIME_SLOTS = {
+  morning: ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00'],
+  afternoon: ['14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00'],
 }
 
-export function AppointmentWidget() {
-  const [date, setDate] = useState('')
-  const [time, setTime] = useState('')
+interface AppointmentWidgetProps {
+  selectedService: string
+  onSelectService: (service: string) => void
+}
+
+export function AppointmentWidget({ selectedService, onSelectService }: AppointmentWidgetProps) {
+  const [selectedDate, setSelectedDate] = useState('')
+  const [selectedTime, setSelectedTime] = useState('')
+  const [customDate, setCustomDate] = useState('')
+  const [showDatePicker, setShowDatePicker] = useState(false)
 
   // Minimum date = today
-  const today = new Date().toISOString().split('T')[0]
+  const todayStr = useMemo(() => new Date().toISOString().split('T')[0], [])
+
+  // Generate next 7 days
+  const carouselDays = useMemo(() => {
+    const days = []
+    const daysOfWeekAbbr = ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb']
+    const daysOfWeekFull = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado']
+    const monthsAbbr = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic']
+    const monthsFull = [
+      'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+      'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+    ]
+
+    for (let i = 0; i < 7; i++) {
+      const d = new Date()
+      d.setDate(d.getDate() + i)
+      
+      const yyyy = d.getFullYear()
+      const mm = String(d.getMonth() + 1).padStart(2, '0')
+      const dd = String(d.getDate()).padStart(2, '0')
+      const dateStr = `${yyyy}-${mm}-${dd}`
+
+      days.push({
+        dateStr,
+        dayAbbr: daysOfWeekAbbr[d.getDay()],
+        dayNumber: d.getDate(),
+        monthAbbr: monthsAbbr[d.getMonth()],
+        fullDateSpanish: `${daysOfWeekFull[d.getDay()]} ${d.getDate()} de ${monthsFull[d.getMonth()]} de ${yyyy}`,
+      })
+    }
+    return days
+  }, [])
+
+  // Format spanish date from custom input
+  const formatCustomDateSpanish = (dateStr: string): string => {
+    if (!dateStr) return ''
+    const [year, month, day] = dateStr.split('-')
+    const dateObj = new Date(parseInt(year), parseInt(month) - 1, parseInt(day))
+    const daysOfWeek = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado']
+    const months = [
+      'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+      'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+    ]
+    const dayName = daysOfWeek[dateObj.getDay()]
+    return `${dayName} ${parseInt(day)} de ${months[parseInt(month) - 1]} de ${year}`
+  }
+
+  // Active date display and formatted version for message
+  const activeDateObj = useMemo(() => {
+    if (!selectedDate) return null
+    const carouselMatch = carouselDays.find(d => d.dateStr === selectedDate)
+    if (carouselMatch) {
+      return {
+        label: `${carouselMatch.dayAbbr.toUpperCase()} ${carouselMatch.dayNumber}`,
+        formatted: carouselMatch.fullDateSpanish
+      }
+    }
+    return {
+      label: selectedDate.split('-')[2] + '/' + selectedDate.split('-')[1],
+      formatted: formatCustomDateSpanish(selectedDate)
+    }
+  }, [selectedDate, carouselDays])
+
+  const handleDateSelect = (dateStr: string) => {
+    setSelectedDate(dateStr)
+    setShowDatePicker(false)
+  }
+
+  const handleCustomDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value
+    setCustomDate(val)
+    if (val) {
+      setSelectedDate(val)
+    }
+  }
 
   const handleConsult = () => {
-    if (!date || !time) return
+    if (!selectedDate || !selectedTime || !selectedService) return
 
-    const formattedDate = formatDateSpanish(date)
-    const message = `Hola! 📅 Te hablo desde la página y quería consultar disponibilidad de turno para el día ${formattedDate} a las ${time} hs. ⏰`
+    const formattedDate = activeDateObj ? activeDateObj.formatted : selectedDate
+    const message = `Hola! 📅 Te hablo desde la página y quería consultar disponibilidad de turno para el ${selectedService} el día ${formattedDate} a las ${selectedTime} hs. ⏰`
     const encoded = encodeURIComponent(message)
     const url = `https://wa.me/${PHONE_NUMBER}?text=${encoded}`
     window.open(url, '_blank', 'noopener,noreferrer')
   }
 
-  const isReady = date && time
+  const isReady = selectedDate && selectedTime && selectedService
 
   return (
-    <div className="w-full rounded-3xl border border-border bg-card/60 backdrop-blur-md shadow-sm p-5 animate-fade-in-up animation-delay-500">
+    <div id="booking-widget" className="w-full rounded-3xl border border-border bg-card/75 backdrop-blur-xl shadow-lg p-6 transition-colors duration-300">
       {/* Header */}
-      <div className="flex items-center gap-3 mb-5">
-        <span className="flex items-center justify-center w-10 h-10 rounded-xl bg-secondary text-primary shrink-0">
-          <CalendarDays size={18} strokeWidth={1.5} />
+      <div className="flex items-center gap-3.5 mb-6">
+        <span className="flex items-center justify-center w-11 h-11 rounded-2xl bg-primary text-primary-foreground shrink-0 shadow-md shadow-primary/20">
+          <CalendarDays size={20} strokeWidth={1.5} />
         </span>
         <div>
-          <p className="text-sm font-medium text-foreground">Solicitar Turno</p>
-          <p className="text-xs text-muted-foreground">Elegí día y horario</p>
+          <h3 className="text-base font-semibold text-foreground tracking-tight">Agenda tu Turno</h3>
+          <p className="text-xs text-muted-foreground">Elegí el servicio, fecha y hora</p>
         </div>
       </div>
 
-      {/* Inputs */}
-      <div className="grid grid-cols-2 gap-3 mb-4">
-        {/* Date picker */}
-        <div className="flex flex-col gap-1.5">
-          <label htmlFor="apt-date" className="text-xs text-muted-foreground tracking-wide uppercase font-medium">
-            Día
+      {/* 1. Service Selection */}
+      <div className="flex flex-col gap-2 mb-5">
+        <label className="text-xs text-muted-foreground tracking-widest uppercase font-medium">
+          1. Selecciona el Masaje
+        </label>
+        <div className="grid grid-cols-1 gap-2">
+          {SERVICES.map((s) => {
+            const isSelected = selectedService === s.name
+            return (
+              <button
+                key={s.id}
+                onClick={() => onSelectService(s.name)}
+                className={`
+                  flex items-center justify-between px-4 py-3 rounded-2xl border text-left
+                  transition-all duration-300 active:scale-[0.99]
+                  ${isSelected
+                    ? 'border-primary bg-primary/10 text-foreground ring-1 ring-primary'
+                    : 'border-border bg-secondary/35 text-muted-foreground hover:border-primary/30 hover:text-foreground hover:bg-secondary/65'
+                  }
+                `}
+              >
+                <div className="flex items-center gap-2.5">
+                  <span className={`
+                    flex items-center justify-center w-5 h-5 rounded-full border
+                    transition-all duration-200
+                    ${isSelected ? 'bg-primary border-primary text-primary-foreground' : 'border-muted-foreground/35'}
+                  `}>
+                    {isSelected && <Check size={12} strokeWidth={3} />}
+                  </span>
+                  <span className="text-sm font-medium">{s.name}</span>
+                </div>
+                <span className="text-xs opacity-80">{s.duration}</span>
+              </button>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* 2. Date Selection (Carousel) */}
+      <div className="flex flex-col gap-2 mb-5">
+        <div className="flex items-center justify-between">
+          <label className="text-xs text-muted-foreground tracking-widest uppercase font-medium">
+            2. Elige el Día
           </label>
+          <button
+            onClick={() => setShowDatePicker(!showDatePicker)}
+            className="text-xs text-primary font-medium hover:underline flex items-center gap-1"
+          >
+            <Calendar size={13} />
+            {showDatePicker ? 'Usar carrusel' : 'Elegir otra fecha'}
+          </button>
+        </div>
+
+        {showDatePicker ? (
           <div className="relative">
             <input
-              id="apt-date"
               type="date"
-              min={today}
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
+              min={todayStr}
+              value={customDate}
+              onChange={handleCustomDateChange}
               className="
-                w-full rounded-xl border border-border bg-secondary/70
-                px-3 py-2.5 text-sm text-foreground
-                focus:outline-none focus:ring-2 focus:ring-ring/40 focus:border-primary/50
-                transition-all duration-200
-                placeholder:text-muted-foreground
-                appearance-none cursor-pointer
+                w-full rounded-2xl border border-border bg-secondary/40
+                px-4 py-3 text-sm text-foreground
+                focus:outline-none focus:ring-2 focus:ring-primary/45 focus:border-primary/50
+                transition-all duration-200 cursor-pointer
               "
             />
           </div>
-        </div>
+        ) : (
+          <div className="flex overflow-x-auto gap-2 pb-2 scrollbar-none snap-x snap-mandatory">
+            {carouselDays.map((d) => {
+              const isSelected = selectedDate === d.dateStr
+              return (
+                <button
+                  key={d.dateStr}
+                  onClick={() => handleDateSelect(d.dateStr)}
+                  className={`
+                    snap-start flex flex-col items-center justify-center min-w-[62px] h-[76px] rounded-2xl border
+                    transition-all duration-300 shrink-0 cursor-pointer active:scale-[0.96]
+                    ${isSelected
+                      ? 'border-primary bg-primary text-primary-foreground shadow-md shadow-primary/20 scale-[1.02]'
+                      : 'border-border bg-secondary/40 text-foreground hover:border-primary/40 hover:bg-secondary/80'
+                    }
+                  `}
+                >
+                  <span className="text-[10px] tracking-wider uppercase font-semibold opacity-75">{d.dayAbbr}</span>
+                  <span className="text-lg font-bold my-0.5">{d.dayNumber}</span>
+                  <span className="text-[10px] tracking-wide font-medium opacity-80">{d.monthAbbr}</span>
+                </button>
+              )
+            })}
+          </div>
+        )}
+      </div>
 
-        {/* Time select */}
-        <div className="flex flex-col gap-1.5">
-          <label htmlFor="apt-time" className="text-xs text-muted-foreground tracking-wide uppercase font-medium">
-            Horario
-          </label>
-          <div className="relative">
-            <Clock size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
-            <select
-              id="apt-time"
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
-              className="
-                w-full rounded-xl border border-border bg-secondary/70
-                pl-8 pr-3 py-2.5 text-sm text-foreground
-                focus:outline-none focus:ring-2 focus:ring-ring/40 focus:border-primary/50
-                transition-all duration-200
-                appearance-none cursor-pointer
-              "
-            >
-              <option value="">-- hs --</option>
-              {TIME_SLOTS.map((slot) => (
-                <option key={slot} value={slot}>{slot} hs</option>
-              ))}
-            </select>
+      {/* 3. Time Selection */}
+      <div className="flex flex-col gap-2 mb-6">
+        <label className="text-xs text-muted-foreground tracking-widest uppercase font-medium flex items-center gap-1.5">
+          <Clock size={12} />
+          3. Elige el Horario
+        </label>
+
+        <div className="flex flex-col gap-4 bg-secondary/25 border border-border/40 rounded-2xl p-4">
+          {/* Morning Slots */}
+          <div>
+            <span className="text-[11px] font-semibold tracking-wider text-muted-foreground uppercase flex items-center gap-1 mb-2.5">
+              🌅 Mañana
+            </span>
+            <div className="grid grid-cols-4 gap-1.5">
+              {TIME_SLOTS.morning.map((slot) => {
+                const isSelected = selectedTime === slot
+                return (
+                  <button
+                    key={slot}
+                    onClick={() => setSelectedTime(slot)}
+                    className={`
+                      py-2 text-xs font-semibold rounded-xl border transition-all duration-200 active:scale-[0.95]
+                      ${isSelected
+                        ? 'border-primary bg-primary text-primary-foreground shadow-sm shadow-primary/10'
+                        : 'border-border bg-card text-foreground hover:border-primary/40 hover:text-foreground'
+                      }
+                    `}
+                  >
+                    {slot}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* Divider */}
+          <div className="h-px bg-border/40" />
+
+          {/* Afternoon Slots */}
+          <div>
+            <span className="text-[11px] font-semibold tracking-wider text-muted-foreground uppercase flex items-center gap-1 mb-2.5">
+              🌇 Tarde
+            </span>
+            <div className="grid grid-cols-4 gap-1.5">
+              {TIME_SLOTS.afternoon.map((slot) => {
+                const isSelected = selectedTime === slot
+                return (
+                  <button
+                    key={slot}
+                    onClick={() => setSelectedTime(slot)}
+                    className={`
+                      py-2 text-xs font-semibold rounded-xl border transition-all duration-200 active:scale-[0.95]
+                      ${isSelected
+                        ? 'border-primary bg-primary text-primary-foreground shadow-sm shadow-primary/10'
+                        : 'border-border bg-card text-foreground hover:border-primary/40 hover:text-foreground'
+                      }
+                    `}
+                  >
+                    {slot}
+                  </button>
+                )
+              })}
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Divider */}
-      <div className="h-px bg-border/60 mb-4" />
+      {/* Booking Summary Box */}
+      {isReady && (
+        <div className="mb-5 rounded-2xl bg-primary/5 border border-primary/20 p-4 animate-fade-in">
+          <h4 className="text-xs font-bold text-primary tracking-wide uppercase mb-1">Resumen del Turno</h4>
+          <p className="text-xs text-foreground font-medium leading-relaxed">
+            🌿 {selectedService} <br />
+            📅 {activeDateObj?.formatted} <br />
+            ⏰ {selectedTime} hs
+          </p>
+        </div>
+      )}
 
       {/* CTA Button */}
       <button
@@ -122,23 +310,23 @@ export function AppointmentWidget() {
         aria-label="Consultar disponibilidad por WhatsApp"
         className="
           group w-full flex items-center justify-center gap-2.5
-          rounded-2xl px-5 py-3.5
+          rounded-2xl px-5 py-4
           bg-primary text-primary-foreground
-          text-sm font-medium tracking-wide
-          shadow-sm
+          text-sm font-semibold tracking-wide
+          shadow-md shadow-primary/20
           transition-all duration-300
-          hover:opacity-90 hover:shadow-md hover:-translate-y-0.5
+          hover:opacity-90 hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5
           active:scale-[0.98]
           disabled:opacity-40 disabled:cursor-not-allowed disabled:translate-y-0 disabled:shadow-sm
         "
       >
-        <MessageCircle size={16} strokeWidth={1.5} />
+        <MessageCircle size={18} strokeWidth={1.5} />
         <span>Consultar Disponibilidad por WhatsApp</span>
       </button>
 
       {!isReady && (
-        <p className="text-center text-xs text-muted-foreground mt-2.5">
-          Seleccioná un día y horario para continuar
+        <p className="text-center text-[11px] text-muted-foreground mt-3">
+          Completa los 3 pasos anteriores para enviar tu consulta
         </p>
       )}
     </div>

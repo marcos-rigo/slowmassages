@@ -74,6 +74,47 @@
   --glass-border: oklch(0.88 0.015 75 / 0.5);
 }
 
+.dark {
+  color-scheme: dark;
+
+  --background: oklch(0.14 0.01 55);            /* deep dark espresso charcoal */
+  --foreground: oklch(0.96 0.008 80);          /* soft warm cream/white */
+
+  --card: oklch(0.18 0.012 55);                /* slightly lighter dark brown/espresso */
+  --card-foreground: oklch(0.96 0.008 80);
+
+  --popover: oklch(0.18 0.012 55);
+  --popover-foreground: oklch(0.96 0.008 80);
+
+  --primary: oklch(0.68 0.055 42);             /* brighter terracotta for readability */
+  --primary-foreground: oklch(0.14 0.01 55);  /* dark background for contrast */
+
+  --secondary: oklch(0.24 0.015 55);           /* dark charcoal-linen */
+  --secondary-foreground: oklch(0.88 0.018 80);
+
+  --muted: oklch(0.20 0.012 55);               /* dark beige/brown */
+  --muted-foreground: oklch(0.68 0.018 60);    /* muted mid-taupe */
+
+  --accent: oklch(0.64 0.05 88);               /* brighter sage-olive */
+  --accent-foreground: oklch(0.14 0.01 55);
+
+  --destructive: oklch(0.60 0.22 27.3);
+  --border: oklch(0.28 0.018 55);              /* dark border */
+  --input: oklch(0.22 0.014 55);
+  --ring: oklch(0.68 0.055 42);
+
+  --glass-bg: oklch(0.18 0.01 55 / 0.6);
+  --glass-border: oklch(0.28 0.018 55 / 0.5);
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
