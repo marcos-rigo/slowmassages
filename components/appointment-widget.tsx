@@ -106,7 +106,7 @@ export function AppointmentWidget() {
   const isReady = selectedDate && selectedTime
 
   return (
-    <div id="booking-widget" className="w-full rounded-[32px] border border-border/80 bg-card/65 backdrop-blur-2xl p-6 shadow-[0_8px_32px_rgba(34,48,38,0.04)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.25)] transition-colors duration-300">
+    <div id="booking-widget" className="w-full rounded-[32px] border border-border/80 bg-card/65 backdrop-blur-2xl p-6 shadow-premium transition-colors duration-300">
       {/* Header */}
       <div className="flex items-center gap-3.5 mb-6">
         <span className="flex items-center justify-center w-11 h-11 rounded-2xl bg-primary text-primary-foreground shrink-0 shadow-md shadow-primary/20">

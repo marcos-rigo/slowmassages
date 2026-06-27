@@ -48,8 +48,9 @@ export default function Home() {
       />
 
       {/* Floating orbs */}
-      <div className="absolute top-[10%] left-[-15%] w-80 h-80 rounded-full bg-primary/8 blur-3xl pointer-events-none animate-breathe-slow" />
-      <div className="absolute top-[50%] right-[-15%] w-96 h-96 rounded-full bg-accent/8 blur-3xl pointer-events-none animate-breathe-slow animation-delay-2000" />
+      <div className="absolute top-[10%] left-[-15%] w-80 h-80 rounded-full bg-primary/15 blur-3xl pointer-events-none animate-breathe-slow" />
+      <div className="absolute top-[40%] left-[25%] w-72 h-72 rounded-full bg-accent/12 blur-3xl pointer-events-none animate-breathe-slow animation-delay-4000" />
+      <div className="absolute top-[65%] right-[-15%] w-96 h-96 rounded-full bg-accent/18 blur-3xl pointer-events-none animate-breathe-slow animation-delay-2000" />
 
       {/* Header controls (Theme Switcher) */}
       <div className="w-full max-w-sm flex justify-end pt-6 relative z-20">
@@ -72,7 +73,7 @@ export default function Home() {
       {/* Centered layout container */}
       <div className="relative z-10 w-full max-w-sm flex flex-col gap-4 mt-2">
         {/* Profile Card */}
-        <div className="w-full rounded-[32px] border border-border/80 bg-card/65 backdrop-blur-2xl p-6 shadow-[0_8px_32px_rgba(34,48,38,0.04)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.25)]">
+        <div className="w-full rounded-[32px] border border-border/80 bg-card/65 backdrop-blur-2xl p-6 shadow-premium">
           <ProfileHeader />
           
           {/* Bio statement */}

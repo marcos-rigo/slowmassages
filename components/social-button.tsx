@@ -79,9 +79,9 @@ export function SocialButton({
         group relative flex items-center gap-4 w-full px-5 py-4
         rounded-3xl border border-border/80
         bg-card/60 backdrop-blur-md
-        shadow-sm hover:shadow-md
+        shadow-premium
         transition-all duration-300
-        hover:bg-card/80
+        hover:bg-card/80 hover:-translate-y-0.5
         active:scale-[0.98]
         animate-fade-in-up ${delay}
         ${brand.hoverBorder}

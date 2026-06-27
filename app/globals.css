@@ -40,76 +40,76 @@
 :root {
   color-scheme: light;
 
-  /* Palette: Eucalyptus & Grounding Earth wellness tones */
-  --background: oklch(0.965 0.006 130);        /* eucalyptus mist background */
-  --foreground: oklch(0.24 0.015 130);          /* deep forest slate text */
+  /* Palette: Eucalyptus & Grounding Earth high-contrast wellness tones */
+  --background: oklch(0.955 0.008 130);       /* richer eucalyptus mist background */
+  --foreground: oklch(0.20 0.02 130);          /* deep forest slate text (high contrast) */
 
-  --card: oklch(0.98 0.004 130 / 0.7);          /* clean white linen card with transparent glass */
-  --card-foreground: oklch(0.24 0.015 130);
+  --card: oklch(0.99 0.003 130 / 0.85);        /* frosted white card, solid contrast */
+  --card-foreground: oklch(0.20 0.02 130);
 
-  --popover: oklch(0.98 0.004 130);
-  --popover-foreground: oklch(0.24 0.015 130);
+  --popover: oklch(0.99 0.003 130);
+  --popover-foreground: oklch(0.20 0.02 130);
 
-  --primary: oklch(0.56 0.025 130);             /* soft grounding sage green */
-  --primary-foreground: oklch(0.98 0.004 130);  /* light linen text */
+  --primary: oklch(0.44 0.03 130);             /* deep grounding sage green (high contrast) */
+  --primary-foreground: oklch(0.99 0.003 130); /* light linen text */
 
-  --secondary: oklch(0.935 0.008 130 / 0.5);    /* pale green tea secondary background */
-  --secondary-foreground: oklch(0.28 0.02 130);
+  --secondary: oklch(0.92 0.01 130 / 0.6);     /* green tea secondary */
+  --secondary-foreground: oklch(0.24 0.02 130);
 
-  --muted: oklch(0.92 0.006 130);               /* subtle beige-grey */
-  --muted-foreground: oklch(0.48 0.015 130);    /* muted mid-sage-grey */
+  --muted: oklch(0.90 0.01 130);               /* defined neutral */
+  --muted-foreground: oklch(0.38 0.018 130);   /* darker sage-grey for accessibility */
 
-  --accent: oklch(0.88 0.03 65);                /* soft warm rose-gold glow accent */
-  --accent-foreground: oklch(0.24 0.015 130);
+  --accent: oklch(0.82 0.05 65);               /* rich warm peach gold glow */
+  --accent-foreground: oklch(0.20 0.02 130);
 
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.88 0.01 130);               /* delicate eucalyptus border */
-  --input: oklch(0.93 0.008 130);
-  --ring: oklch(0.56 0.025 130);
+  --border: oklch(0.80 0.02 130);              /* highly defined borders */
+  --input: oklch(0.91 0.012 130);
+  --ring: oklch(0.44 0.03 130);
 
-  --radius: 1.5rem;                             /* organic, smoother rounded corners */
+  --radius: 1.75rem;                           /* extremely smooth organic corners */
 
   /* Glass overlay color */
-  --glass-bg: oklch(0.98 0.004 130 / 0.6);
-  --glass-border: oklch(0.88 0.01 130 / 0.5);
+  --glass-bg: oklch(0.99 0.003 130 / 0.75);
+  --glass-border: oklch(0.80 0.02 130 / 0.7);
 
   /* Background Ambient Glow */
-  --ambient-glow: radial-gradient(circle at 50% -20%, oklch(0.90 0.03 130) 0%, oklch(0.965 0.006 130) 60%, oklch(0.965 0.006 130) 100%);
+  --ambient-glow: radial-gradient(circle at 50% -20%, oklch(0.88 0.04 130) 0%, oklch(0.955 0.008 130) 65%, oklch(0.955 0.008 130) 100%);
 }
 
 .dark {
   color-scheme: dark;
 
-  --background: oklch(0.12 0.008 130);          /* deep spruce charcoal */
-  --foreground: oklch(0.94 0.006 130);          /* mint cream text */
+  --background: oklch(0.09 0.01 130);          /* pitch dark spruce charcoal for maximum depth */
+  --foreground: oklch(0.96 0.005 130);         /* bright mint cream text */
 
-  --card: oklch(0.16 0.01 130 / 0.7);            /* spruce jade card base */
-  --card-foreground: oklch(0.94 0.006 130);
+  --card: oklch(0.13 0.012 130 / 0.85);        /* high contrast dark spruce card */
+  --card-foreground: oklch(0.96 0.005 130);
 
-  --popover: oklch(0.16 0.01 130);
-  --popover-foreground: oklch(0.94 0.006 130);
+  --popover: oklch(0.13 0.012 130);
+  --popover-foreground: oklch(0.96 0.005 130);
 
-  --primary: oklch(0.72 0.025 130);             /* soft mint/sage for dark mode readability */
-  --primary-foreground: oklch(0.12 0.008 130);
+  --primary: oklch(0.78 0.03 130);             /* vibrant luminous mint/sage */
+  --primary-foreground: oklch(0.09 0.01 130);
 
-  --secondary: oklch(0.20 0.012 130 / 0.5);      /* deep forest-charcoal secondary */
-  --secondary-foreground: oklch(0.90 0.01 130);
+  --secondary: oklch(0.18 0.015 130 / 0.6);     /* forest charcoal secondary */
+  --secondary-foreground: oklch(0.92 0.01 130);
 
-  --muted: oklch(0.18 0.01 130);
-  --muted-foreground: oklch(0.62 0.015 130);    /* muted forest-grey */
+  --muted: oklch(0.16 0.012 130);
+  --muted-foreground: oklch(0.68 0.015 130);   /* clear forest-grey text */
 
-  --accent: oklch(0.32 0.025 65);               /* deep warm amber accent */
-  --accent-foreground: oklch(0.94 0.006 130);
+  --accent: oklch(0.78 0.05 65);               /* bright luminous gold/amber */
+  --accent-foreground: oklch(0.09 0.01 130);
 
   --destructive: oklch(0.60 0.22 27.3);
-  --border: oklch(0.22 0.012 130);               /* dark border */
-  --input: oklch(0.18 0.01 130);
-  --ring: oklch(0.72 0.025 130);
+  --border: oklch(0.24 0.02 130);              /* well defined dark borders */
+  --input: oklch(0.16 0.015 130);
+  --ring: oklch(0.78 0.03 130);
 
-  --glass-bg: oklch(0.16 0.01 130 / 0.6);
-  --glass-border: oklch(0.22 0.012 130 / 0.5);
+  --glass-bg: oklch(0.13 0.012 130 / 0.75);
+  --glass-border: oklch(0.24 0.02 130 / 0.7);
 
-  --ambient-glow: radial-gradient(circle at 50% -20%, oklch(0.22 0.03 130) 0%, oklch(0.12 0.008 130) 60%, oklch(0.12 0.008 130) 100%);
+  --ambient-glow: radial-gradient(circle at 50% -20%, oklch(0.18 0.04 130) 0%, oklch(0.09 0.01 130) 65%, oklch(0.09 0.01 130) 100%);
 }
 
 .scrollbar-none::-webkit-scrollbar {
@@ -184,4 +184,34 @@
 
 [class*="animate-fade"] {
   opacity: 0;
+}
+
+/* Premium Multi-layered Shadows for Tactile Depth */
+.shadow-premium {
+  box-shadow: 
+    0 12px 36px -12px rgba(34, 48, 38, 0.12),
+    0 24px 64px -24px rgba(34, 48, 38, 0.18),
+    inset 0 1px 1px rgba(255, 255, 255, 0.95);
+  transition: box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, bg-color 0.4s ease;
+}
+
+.dark .shadow-premium {
+  box-shadow: 
+    0 12px 36px -12px rgba(0, 0, 0, 0.6),
+    0 24px 64px -24px rgba(0, 0, 0, 0.8),
+    inset 0 1px 1px rgba(255, 255, 255, 0.08);
+}
+
+.shadow-premium:hover {
+  box-shadow: 
+    0 20px 48px -12px rgba(34, 48, 38, 0.18),
+    0 32px 80px -20px rgba(34, 48, 38, 0.24),
+    inset 0 1px 1px rgba(255, 255, 255, 0.95);
+}
+
+.dark .shadow-premium:hover {
+  box-shadow: 
+    0 20px 48px -12px rgba(0, 0, 0, 0.7),
+    0 32px 80px -20px rgba(0, 0, 0, 0.9),
+    inset 0 1px 1px rgba(255, 255, 255, 0.08);
 }
