@@ -14,10 +14,16 @@ const WHATSAPP_DIRECT_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURICo
 export default function FrontendDesignPage() {
   const [darkMode, setDarkMode] = useState(false)
 
-  // Initialize theme from localStorage or system settings
+  // Initialize theme: default to light mode unless dark mode is explicitly chosen
   useEffect(() => {
-    const isDark = document.documentElement.classList.contains('dark')
-    setDarkMode(isDark)
+    const isDark = localStorage.getItem('theme') === 'dark'
+    if (isDark) {
+      document.documentElement.classList.add('dark')
+      setDarkMode(true)
+    } else {
+      document.documentElement.classList.remove('dark')
+      setDarkMode(false)
+    }
   }, [])
 
   const toggleDarkMode = () => {
@@ -33,7 +39,7 @@ export default function FrontendDesignPage() {
   }
 
   return (
-    <main className="relative min-h-screen w-full bg-background text-foreground transition-colors duration-300 p-4 md:p-8 flex flex-col items-center">
+    <main className="relative min-h-screen w-full bg-background text-foreground transition-colors duration-300 p-4 md:p-8 flex flex-col items-center overflow-x-hidden">
       {/* Dynamic ambient backgrounds */}
       <div
         className="fixed inset-0 pointer-events-none transition-all duration-1000"
