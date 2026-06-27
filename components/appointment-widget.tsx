@@ -1,15 +1,9 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import { CalendarDays, Clock, MessageCircle, Check, Calendar } from 'lucide-react'
+import { CalendarDays, Clock, MessageCircle, Calendar } from 'lucide-react'
 
 const PHONE_NUMBER = '5493816689786'
-
-const SERVICES = [
-  { id: 'calma', name: 'Masaje Calma Profunda', duration: '60/90 min' },
-  { id: 'descontracturante', name: 'Masaje Liberación & Alivio', duration: '60/90 min' },
-  { id: 'signature', name: 'Experiencia Slow Signature', duration: '75 min' },
-]
 
 const TIME_SLOTS = {
   morning: ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00'],
@@ -17,7 +11,6 @@ const TIME_SLOTS = {
 }
 
 export function AppointmentWidget() {
-  const [selectedService, setSelectedService] = useState('')
   const [selectedDate, setSelectedDate] = useState('')
   const [selectedTime, setSelectedTime] = useState('')
   const [customDate, setCustomDate] = useState('')
@@ -101,16 +94,16 @@ export function AppointmentWidget() {
   }
 
   const handleConsult = () => {
-    if (!selectedDate || !selectedTime || !selectedService) return
+    if (!selectedDate || !selectedTime) return
 
     const formattedDate = activeDateObj ? activeDateObj.formatted : selectedDate
-    const message = `Hola! 📅 Te hablo desde la página y quería consultar disponibilidad de turno para el ${selectedService} el día ${formattedDate} a las ${selectedTime} hs. ⏰`
+    const message = `Hola! 📅 Te hablo desde la página y quería consultar disponibilidad de turno para el día ${formattedDate} a las ${selectedTime} hs. ⏰`
     const encoded = encodeURIComponent(message)
     const url = `https://wa.me/${PHONE_NUMBER}?text=${encoded}`
     window.open(url, '_blank', 'noopener,noreferrer')
   }
 
-  const isReady = selectedDate && selectedTime && selectedService
+  const isReady = selectedDate && selectedTime
 
   return (
     <div id="booking-widget" className="w-full rounded-3xl border border-border bg-card/75 backdrop-blur-xl shadow-lg p-6 transition-colors duration-300">
@@ -121,53 +114,15 @@ export function AppointmentWidget() {
         </span>
         <div>
           <h3 className="text-base font-semibold text-foreground tracking-tight">Agenda tu Turno</h3>
-          <p className="text-xs text-muted-foreground">Elegí el servicio, fecha y hora</p>
+          <p className="text-xs text-muted-foreground">Elegí fecha y hora</p>
         </div>
       </div>
 
-      {/* 1. Service Selection */}
-      <div className="flex flex-col gap-2 mb-5">
-        <label className="text-xs text-muted-foreground tracking-widest uppercase font-medium">
-          1. Selecciona el Masaje
-        </label>
-        <div className="grid grid-cols-1 gap-2">
-          {SERVICES.map((s) => {
-            const isSelected = selectedService === s.name
-            return (
-              <button
-                key={s.id}
-                onClick={() => setSelectedService(s.name)}
-                className={`
-                  flex items-center justify-between px-4 py-3 rounded-2xl border text-left
-                  transition-all duration-300 active:scale-[0.99]
-                  ${isSelected
-                    ? 'border-primary bg-primary/10 text-foreground ring-1 ring-primary'
-                    : 'border-border bg-secondary/35 text-muted-foreground hover:border-primary/30 hover:text-foreground hover:bg-secondary/65'
-                  }
-                `}
-              >
-                <div className="flex items-center gap-2.5">
-                  <span className={`
-                    flex items-center justify-center w-5 h-5 rounded-full border
-                    transition-all duration-200
-                    ${isSelected ? 'bg-primary border-primary text-primary-foreground' : 'border-muted-foreground/35'}
-                  `}>
-                    {isSelected && <Check size={12} strokeWidth={3} />}
-                  </span>
-                  <span className="text-sm font-medium">{s.name}</span>
-                </div>
-                <span className="text-xs opacity-80">{s.duration}</span>
-              </button>
-            )
-          })}
-        </div>
-      </div>
-
-      {/* 2. Date Selection (Carousel) */}
+      {/* 1. Date Selection (Carousel) */}
       <div className="flex flex-col gap-2 mb-5">
         <div className="flex items-center justify-between">
           <label className="text-xs text-muted-foreground tracking-widest uppercase font-medium">
-            2. Elige el Día
+            1. Elige el Día
           </label>
           <button
             onClick={() => setShowDatePicker(!showDatePicker)}
@@ -220,11 +175,11 @@ export function AppointmentWidget() {
         )}
       </div>
 
-      {/* 3. Time Selection */}
+      {/* 2. Time Selection */}
       <div className="flex flex-col gap-2 mb-6">
         <label className="text-xs text-muted-foreground tracking-widest uppercase font-medium flex items-center gap-1.5">
           <Clock size={12} />
-          3. Elige el Horario
+          2. Elige el Horario
         </label>
 
         <div className="flex flex-col gap-4 bg-secondary/25 border border-border/40 rounded-2xl p-4">
@@ -292,7 +247,6 @@ export function AppointmentWidget() {
         <div className="mb-5 rounded-2xl bg-primary/5 border border-primary/20 p-4 animate-fade-in">
           <h4 className="text-xs font-bold text-primary tracking-wide uppercase mb-1">Resumen del Turno</h4>
           <p className="text-xs text-foreground font-medium leading-relaxed">
-            🌿 {selectedService} <br />
             📅 {activeDateObj?.formatted} <br />
             ⏰ {selectedTime} hs
           </p>
@@ -322,7 +276,7 @@ export function AppointmentWidget() {
 
       {!isReady && (
         <p className="text-center text-[11px] text-muted-foreground mt-3">
-          Completa los 3 pasos anteriores para enviar tu consulta
+          Completa los pasos anteriores para enviar tu consulta
         </p>
       )}
     </div>
