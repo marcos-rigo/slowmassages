@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { CalendarDays, Clock, MessageCircle } from 'lucide-react'
 
-const PHONE_NUMBER = '5491100000000' // placeholder — replace with real number
+const PHONE_NUMBER = '5493816689786'
 
 const TIME_SLOTS = [
   '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
