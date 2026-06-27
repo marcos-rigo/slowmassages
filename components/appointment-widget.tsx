@@ -16,12 +16,8 @@ const TIME_SLOTS = {
   afternoon: ['14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00'],
 }
 
-interface AppointmentWidgetProps {
-  selectedService: string
-  onSelectService: (service: string) => void
-}
-
-export function AppointmentWidget({ selectedService, onSelectService }: AppointmentWidgetProps) {
+export function AppointmentWidget() {
+  const [selectedService, setSelectedService] = useState('')
   const [selectedDate, setSelectedDate] = useState('')
   const [selectedTime, setSelectedTime] = useState('')
   const [customDate, setCustomDate] = useState('')
@@ -140,7 +136,7 @@ export function AppointmentWidget({ selectedService, onSelectService }: Appointm
             return (
               <button
                 key={s.id}
-                onClick={() => onSelectService(s.name)}
+                onClick={() => setSelectedService(s.name)}
                 className={`
                   flex items-center justify-between px-4 py-3 rounded-2xl border text-left
                   transition-all duration-300 active:scale-[0.99]
