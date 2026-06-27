@@ -32,7 +32,7 @@ export function AppointmentWidget() {
     if (!date || !time) return
 
     const formattedDate = formatDateSpanish(date)
-    const message = `Hola! Te hablo desde la página y quiero saber si para el día ${formattedDate} a las ${time} hs hay turno disponible?`
+    const message = `Hola! 🌿 Te hablo desde la página y quería consultar disponibilidad de turno para el día ${formattedDate} a las ${time} hs. ✨`
     const encoded = encodeURIComponent(message)
     const url = `https://wa.me/${PHONE_NUMBER}?text=${encoded}`
     window.open(url, '_blank', 'noopener,noreferrer')
