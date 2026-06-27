@@ -17,10 +17,39 @@ const cormorantGaramond = Cormorant_Garamond({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://slowmassages.com'), // Adjust this to your production domain when deploying
   title: 'Slow Massages — Espacio de bienestar & reconexión',
   description:
     'Reservá tu turno de masajes. Un espacio de bienestar, calma y reconexión contigo mismo.',
   generator: 'v0.app',
+  icons: {
+    icon: [
+      { url: '/images/perfil.jpg', type: 'image/jpeg' },
+    ],
+    apple: '/images/perfil.jpg',
+  },
+  openGraph: {
+    title: 'Slow Massages — Espacio de bienestar & reconexión',
+    description: 'Reservá tu turno de masajes. Un espacio de bienestar, calma y reconexión contigo mismo.',
+    url: '/',
+    siteName: 'Slow Massages',
+    images: [
+      {
+        url: '/images/perfil.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Slow Massages Logo',
+      },
+    ],
+    locale: 'es_AR',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Slow Massages — Espacio de bienestar & reconexión',
+    description: 'Reservá tu turno de masajes. Un espacio de bienestar, calma y reconexión contigo mismo.',
+    images: ['/images/perfil.jpg'],
+  },
 }
 
 export const viewport: Viewport = {
