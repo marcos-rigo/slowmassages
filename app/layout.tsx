@@ -17,7 +17,7 @@ const cormorantGaramond = Cormorant_Garamond({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://slowmassages.com'), // Adjust this to your production domain when deploying
+  metadataBase: new URL('https://slowmassages.vercel.app'),
   title: 'Slow Massages — Espacio de bienestar & reconexión',
   description:
     'Reservá tu turno de masajes. Un espacio de bienestar, calma y reconexión contigo mismo.',
