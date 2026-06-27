@@ -14,11 +14,16 @@ const TIME_SLOTS = [
 function formatDateSpanish(dateStr: string): string {
   if (!dateStr) return ''
   const [year, month, day] = dateStr.split('-')
+  const dateObj = new Date(parseInt(year), parseInt(month) - 1, parseInt(day))
+  const daysOfWeek = [
+    'domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'
+  ]
   const months = [
     'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
     'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre',
   ]
-  return `${parseInt(day)} de ${months[parseInt(month) - 1]} de ${year}`
+  const dayName = daysOfWeek[dateObj.getDay()]
+  return `${dayName} ${parseInt(day)} de ${months[parseInt(month) - 1]} de ${year}`
 }
 
 export function AppointmentWidget() {
@@ -32,7 +37,7 @@ export function AppointmentWidget() {
     if (!date || !time) return
 
     const formattedDate = formatDateSpanish(date)
-    const message = `Hola! 🌿 Te hablo desde la página y quería consultar disponibilidad de turno para el día ${formattedDate} a las ${time} hs. ✨`
+    const message = `Hola! 📅 Te hablo desde la página y quería consultar disponibilidad de turno para el día ${formattedDate} a las ${time} hs. ⏰`
     const encoded = encodeURIComponent(message)
     const url = `https://wa.me/${PHONE_NUMBER}?text=${encoded}`
     window.open(url, '_blank', 'noopener,noreferrer')
