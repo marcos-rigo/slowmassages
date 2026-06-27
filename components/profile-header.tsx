@@ -19,22 +19,19 @@ export function ProfileHeader() {
 
       {/* Brand name */}
       <div className="flex flex-col items-center gap-1 text-center">
-        <h1
-          className="text-3xl tracking-wide text-foreground"
-          style={{ fontFamily: 'Georgia, "Times New Roman", serif', fontWeight: 400 }}
-        >
+        <h1 className="text-4xl tracking-wide text-foreground font-heading font-light">
           Slow Massages
         </h1>
-        <p className="text-sm text-muted-foreground tracking-widest uppercase font-light">
+        <p className="text-[11px] text-muted-foreground/80 tracking-widest uppercase font-medium mt-1">
           Espacio de bienestar &amp; reconexión
         </p>
       </div>
 
       {/* Decorative divider */}
-      <div className="flex items-center gap-3 mt-1">
-        <div className="w-8 h-px bg-border" />
-        <div className="w-1.5 h-1.5 rounded-full bg-accent/60" />
-        <div className="w-8 h-px bg-border" />
+      <div className="flex items-center gap-3 mt-2">
+        <div className="w-12 h-px bg-border/80" />
+        <div className="w-1.5 h-1.5 rounded-full bg-primary/40" />
+        <div className="w-12 h-px bg-border/80" />
       </div>
     </header>
   )

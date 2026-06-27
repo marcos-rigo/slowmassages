@@ -1,18 +1,19 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { DM_Sans, DM_Mono } from 'next/font/google'
+import { DM_Sans, Cormorant_Garamond } from 'next/font/google'
 import './globals.css'
 
 const dmSans = DM_Sans({
   variable: '--font-dm-sans',
   subsets: ['latin'],
-  weight: ['300', '400', '500'],
+  weight: ['300', '400', '500', '700'],
 })
 
-const geistMono = DM_Mono({
-  variable: '--font-geist-mono',
+const cormorantGaramond = Cormorant_Garamond({
+  variable: '--font-cormorant',
   subsets: ['latin'],
-  weight: ['300', '400', '500'],
+  weight: ['300', '400', '500', '600', '700'],
+  style: ['normal', 'italic'],
 })
 
 export const metadata: Metadata = {
@@ -36,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="es" className={`${dmSans.variable} bg-background`}>
+    <html lang="es" className={`${dmSans.variable} ${cormorantGaramond.variable} bg-background`}>
       <body className="font-sans antialiased">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}

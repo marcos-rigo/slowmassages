@@ -5,7 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-heading: var(--font-playfair);
+  --font-heading: var(--font-cormorant);
   --font-sans: var(--font-dm-sans), 'DM Sans Fallback', ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), 'Geist Mono Fallback';
 
@@ -40,71 +40,76 @@
 :root {
   color-scheme: light;
 
-  /* Palette: cream background, warm taupe, deep espresso text, terracotta accent, muted olive */
-  --background: oklch(0.972 0.008 80);        /* soft cream */
-  --foreground: oklch(0.28 0.018 55);          /* deep warm espresso */
+  /* Palette: Eucalyptus & Grounding Earth wellness tones */
+  --background: oklch(0.965 0.006 130);        /* eucalyptus mist background */
+  --foreground: oklch(0.24 0.015 130);          /* deep forest slate text */
 
-  --card: oklch(0.965 0.012 78);               /* warm off-white */
-  --card-foreground: oklch(0.28 0.018 55);
+  --card: oklch(0.98 0.004 130 / 0.7);          /* clean white linen card with transparent glass */
+  --card-foreground: oklch(0.24 0.015 130);
 
-  --popover: oklch(0.965 0.012 78);
-  --popover-foreground: oklch(0.28 0.018 55);
+  --popover: oklch(0.98 0.004 130);
+  --popover-foreground: oklch(0.24 0.015 130);
 
-  --primary: oklch(0.52 0.055 42);             /* warm terracotta-taupe */
-  --primary-foreground: oklch(0.98 0.005 78);  /* near-white */
+  --primary: oklch(0.56 0.025 130);             /* soft grounding sage green */
+  --primary-foreground: oklch(0.98 0.004 130);  /* light linen text */
 
-  --secondary: oklch(0.91 0.018 80);           /* light linen */
-  --secondary-foreground: oklch(0.32 0.022 55);
+  --secondary: oklch(0.935 0.008 130 / 0.5);    /* pale green tea secondary background */
+  --secondary-foreground: oklch(0.28 0.02 130);
 
-  --muted: oklch(0.94 0.012 78);               /* subtle beige */
-  --muted-foreground: oklch(0.52 0.022 60);    /* warm mid-taupe */
+  --muted: oklch(0.92 0.006 130);               /* subtle beige-grey */
+  --muted-foreground: oklch(0.48 0.015 130);    /* muted mid-sage-grey */
 
-  --accent: oklch(0.56 0.06 88);               /* muted sage-olive */
-  --accent-foreground: oklch(0.98 0.005 78);
+  --accent: oklch(0.88 0.03 65);                /* soft warm rose-gold glow accent */
+  --accent-foreground: oklch(0.24 0.015 130);
 
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.87 0.018 75);              /* warm taupe border */
-  --input: oklch(0.93 0.014 78);
-  --ring: oklch(0.52 0.055 42);
+  --border: oklch(0.88 0.01 130);               /* delicate eucalyptus border */
+  --input: oklch(0.93 0.008 130);
+  --ring: oklch(0.56 0.025 130);
 
-  --radius: 0.75rem;
+  --radius: 1.5rem;                             /* organic, smoother rounded corners */
 
   /* Glass overlay color */
-  --glass-bg: oklch(0.97 0.01 78 / 0.6);
-  --glass-border: oklch(0.88 0.015 75 / 0.5);
+  --glass-bg: oklch(0.98 0.004 130 / 0.6);
+  --glass-border: oklch(0.88 0.01 130 / 0.5);
+
+  /* Background Ambient Glow */
+  --ambient-glow: radial-gradient(circle at 50% -20%, oklch(0.90 0.03 130) 0%, oklch(0.965 0.006 130) 60%, oklch(0.965 0.006 130) 100%);
 }
 
 .dark {
   color-scheme: dark;
 
-  --background: oklch(0.14 0.01 55);            /* deep dark espresso charcoal */
-  --foreground: oklch(0.96 0.008 80);          /* soft warm cream/white */
+  --background: oklch(0.12 0.008 130);          /* deep spruce charcoal */
+  --foreground: oklch(0.94 0.006 130);          /* mint cream text */
 
-  --card: oklch(0.18 0.012 55);                /* slightly lighter dark brown/espresso */
-  --card-foreground: oklch(0.96 0.008 80);
+  --card: oklch(0.16 0.01 130 / 0.7);            /* spruce jade card base */
+  --card-foreground: oklch(0.94 0.006 130);
 
-  --popover: oklch(0.18 0.012 55);
-  --popover-foreground: oklch(0.96 0.008 80);
+  --popover: oklch(0.16 0.01 130);
+  --popover-foreground: oklch(0.94 0.006 130);
 
-  --primary: oklch(0.68 0.055 42);             /* brighter terracotta for readability */
-  --primary-foreground: oklch(0.14 0.01 55);  /* dark background for contrast */
+  --primary: oklch(0.72 0.025 130);             /* soft mint/sage for dark mode readability */
+  --primary-foreground: oklch(0.12 0.008 130);
 
-  --secondary: oklch(0.24 0.015 55);           /* dark charcoal-linen */
-  --secondary-foreground: oklch(0.88 0.018 80);
+  --secondary: oklch(0.20 0.012 130 / 0.5);      /* deep forest-charcoal secondary */
+  --secondary-foreground: oklch(0.90 0.01 130);
 
-  --muted: oklch(0.20 0.012 55);               /* dark beige/brown */
-  --muted-foreground: oklch(0.68 0.018 60);    /* muted mid-taupe */
+  --muted: oklch(0.18 0.01 130);
+  --muted-foreground: oklch(0.62 0.015 130);    /* muted forest-grey */
 
-  --accent: oklch(0.64 0.05 88);               /* brighter sage-olive */
-  --accent-foreground: oklch(0.14 0.01 55);
+  --accent: oklch(0.32 0.025 65);               /* deep warm amber accent */
+  --accent-foreground: oklch(0.94 0.006 130);
 
   --destructive: oklch(0.60 0.22 27.3);
-  --border: oklch(0.28 0.018 55);              /* dark border */
-  --input: oklch(0.22 0.014 55);
-  --ring: oklch(0.68 0.055 42);
+  --border: oklch(0.22 0.012 130);               /* dark border */
+  --input: oklch(0.18 0.01 130);
+  --ring: oklch(0.72 0.025 130);
 
-  --glass-bg: oklch(0.18 0.01 55 / 0.6);
-  --glass-border: oklch(0.28 0.018 55 / 0.5);
+  --glass-bg: oklch(0.16 0.01 130 / 0.6);
+  --glass-border: oklch(0.22 0.012 130 / 0.5);
+
+  --ambient-glow: radial-gradient(circle at 50% -20%, oklch(0.22 0.03 130) 0%, oklch(0.12 0.008 130) 60%, oklch(0.12 0.008 130) 100%);
 }
 
 .scrollbar-none::-webkit-scrollbar {
@@ -144,12 +149,27 @@
   to   { opacity: 1; }
 }
 
+@keyframes breathe {
+  0%, 100% {
+    opacity: 0.75;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.08);
+  }
+}
+
 .animate-fade-in-up {
   animation: fadeInUp 0.7s ease forwards;
 }
 
 .animate-fade-in {
   animation: fadeIn 0.6s ease forwards;
+}
+
+.animate-breathe-slow {
+  animation: breathe 14s ease-in-out infinite;
 }
 
 .animation-delay-100 { animation-delay: 0.1s; }
@@ -159,6 +179,8 @@
 .animation-delay-500 { animation-delay: 0.5s; }
 .animation-delay-600 { animation-delay: 0.6s; }
 .animation-delay-700 { animation-delay: 0.7s; }
+.animation-delay-2000 { animation-delay: 2s; }
+.animation-delay-4000 { animation-delay: 4s; }
 
 [class*="animate-fade"] {
   opacity: 0;

@@ -106,22 +106,22 @@ export function AppointmentWidget() {
   const isReady = selectedDate && selectedTime
 
   return (
-    <div id="booking-widget" className="w-full rounded-3xl border border-border bg-card/75 backdrop-blur-xl shadow-lg p-6 transition-colors duration-300">
+    <div id="booking-widget" className="w-full rounded-[32px] border border-border/80 bg-card/65 backdrop-blur-2xl p-6 shadow-[0_8px_32px_rgba(34,48,38,0.04)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.25)] transition-colors duration-300">
       {/* Header */}
       <div className="flex items-center gap-3.5 mb-6">
         <span className="flex items-center justify-center w-11 h-11 rounded-2xl bg-primary text-primary-foreground shrink-0 shadow-md shadow-primary/20">
           <CalendarDays size={20} strokeWidth={1.5} />
         </span>
         <div>
-          <h3 className="text-base font-semibold text-foreground tracking-tight">Agenda tu Turno</h3>
-          <p className="text-xs text-muted-foreground">Elegí fecha y hora</p>
+          <h3 className="text-lg font-medium font-heading text-foreground tracking-wide">Agenda tu Turno</h3>
+          <p className="text-xs text-muted-foreground/80 font-light">Elegí fecha y hora</p>
         </div>
       </div>
 
       {/* 1. Date Selection (Carousel) */}
       <div className="flex flex-col gap-2 mb-5">
         <div className="flex items-center justify-between">
-          <label className="text-xs text-muted-foreground tracking-widest uppercase font-medium">
+          <label className="text-[11px] text-muted-foreground/90 tracking-widest uppercase font-semibold">
             1. Elige el Día
           </label>
           <button
@@ -177,7 +177,7 @@ export function AppointmentWidget() {
 
       {/* 2. Time Selection */}
       <div className="flex flex-col gap-2 mb-6">
-        <label className="text-xs text-muted-foreground tracking-widest uppercase font-medium flex items-center gap-1.5">
+        <label className="text-[11px] text-muted-foreground/90 tracking-widest uppercase font-semibold flex items-center gap-1.5">
           <Clock size={12} />
           2. Elige el Horario
         </label>
@@ -260,7 +260,7 @@ export function AppointmentWidget() {
         aria-label="Consultar disponibilidad por WhatsApp"
         className="
           group w-full flex items-center justify-center gap-2.5
-          rounded-2xl px-5 py-4
+          rounded-3xl px-5 py-4
           bg-primary text-primary-foreground
           text-sm font-semibold tracking-wide
           shadow-md shadow-primary/20

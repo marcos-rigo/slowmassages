@@ -77,7 +77,7 @@ export function SocialButton({
       rel="noopener noreferrer"
       className={`
         group relative flex items-center gap-4 w-full px-5 py-4
-        rounded-2xl border border-border
+        rounded-3xl border border-border/80
         bg-card/60 backdrop-blur-md
         shadow-sm hover:shadow-md
         transition-all duration-300
